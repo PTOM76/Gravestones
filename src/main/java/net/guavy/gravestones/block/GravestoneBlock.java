@@ -8,6 +8,9 @@ import net.guavy.gravestones.config.GravestoneRetrievalType;
 import net.guavy.gravestones.config.GravestonesConfig;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -28,12 +31,13 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GravestoneBlock extends HorizontalFacingBlock implements BlockEntityProvider {
+public class GravestoneBlock extends HorizontalFacingBlock implements FluidFillable, BlockEntityProvider {
     public GravestoneBlock(Settings settings) {
         super(settings);
         setDefaultState(this.stateManager.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
@@ -69,6 +73,16 @@ public class GravestoneBlock extends HorizontalFacingBlock implements BlockEntit
 
         dropAllGrave(world, pos);
         super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
+        return false;
+    }
+
+    @Override
+    public boolean canFillWithFluid(BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
+        return false;
     }
 
     @Override
