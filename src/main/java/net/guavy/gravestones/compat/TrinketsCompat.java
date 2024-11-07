@@ -47,7 +47,7 @@ public class TrinketsCompat implements GravestonesApi {
                             continue;
                         }
 
-                        playerInventory.insertStack(item);
+                        playerInventory.offerOrDrop(item);
 
                     }
                 }
